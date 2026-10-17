@@ -41,3 +41,7 @@ yarn-error.log*
 next-env.d.ts
 test-task-junior.md
 !.env.example
+
+/app/generated/prisma
+*.db
+*.db-journal

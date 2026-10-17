@@ -1,69 +1,81 @@
-import Image from 'next/image';
+import Link from 'next/link';
+import { Suspense } from 'react';
+import { getPublishedProducts } from '@/lib/products';
 
-export default function Home() {
+export default function CatalogPage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="mx-auto w-full max-w-6xl px-4 pt-12 pb-20 sm:px-6 sm:pt-20">
+      <h1 className="text-[32px] leading-tight font-semibold tracking-tight sm:text-5xl">
+        Каталог
+      </h1>
+      <p className="mt-3 max-w-xl text-[17px] leading-relaxed text-secondary sm:text-xl">
+        Речі для дому, описані так, щоб їх хотілося взяти в руки.
+      </p>
+
+      <Suspense fallback={<CatalogSkeleton />}>
+        <ProductList />
+      </Suspense>
+    </main>
+  );
+}
+
+async function ProductList() {
+  const products = await getPublishedProducts();
+
+  if (products.length === 0) {
+    return (
+      <p className="mt-12 rounded-3xl bg-card px-6 py-16 text-center text-[17px] text-secondary">
+        Опублікованих товарів поки немає. Загляньте трохи згодом.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+      {products.map(product => (
+        <li key={product.slug}>
+          <Link
+            href={`/products/${product.slug}`}
+            className="group flex h-full flex-col rounded-3xl bg-card p-7 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgb(0_0_0/0.08)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          >
+            {product.specs.length > 0 && (
+              <p className="text-[13px] font-medium text-secondary">
+                {product.specs.map(spec => spec.value).join(' · ')}
+              </p>
+            )}
+            <h2 className="mt-2 text-[21px] leading-snug font-semibold tracking-tight">
+              {product.name}
+            </h2>
+            <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-secondary">
+              {product.description}
+            </p>
+            <span className="mt-auto pt-6 text-[15px] font-medium text-accent">
+              Детальніше
+              <span
+                aria-hidden="true"
+                className="ml-1 inline-block transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+              >
+                ›
+              </span>
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CatalogSkeleton() {
+  return (
+    <div role="status" className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
+      <span className="sr-only">Завантаження товарів…</span>
+      {[0, 1, 2].map(index => (
+        <div
+          key={index}
+          aria-hidden="true"
+          className="h-64 animate-pulse rounded-3xl bg-card motion-reduce:animate-none"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{' '}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{' '}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      ))}
     </div>
   );
 }

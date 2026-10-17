@@ -1,26 +1,44 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/*
+  Семантичні кольори: кожен має роль, а не назву відтінку.
+  Контраст (WCAG): label 16.8:1, secondary 5.1:1 (світла) / 6.6:1 (темна), accent 5.6:1 / 5.6:1.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --surface: #f5f5f7;
+  --card: #ffffff;
+  --label: #1d1d1f;
+  --secondary: #6e6e73;
+  --separator: #d2d2d7;
+  --accent: #0066cc;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --surface: #000000;
+    --card: #1c1c1e;
+    --label: #f5f5f7;
+    --secondary: #a1a1a6;
+    --separator: #38383a;
+    --accent: #2997ff;
   }
 }
 
+@theme inline {
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-label: var(--label);
+  --color-secondary: var(--secondary);
+  --color-separator: var(--separator);
+  --color-accent: var(--accent);
+
+  /* Системний шрифт: SF на пристроях Apple, Segoe UI на Windows, Roboto на Android. Усі з кирилицею. */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--surface);
+  color: var(--label);
 }

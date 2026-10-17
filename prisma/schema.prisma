@@ -39,19 +39,8 @@ model ProductSpec {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
-  email        String    @unique
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
   passwordHash String
-  sessions     Session[]
-  createdAt    DateTime  @default(now())
-}
-
-model Session {
-  id        String   @id
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-
-  @@index([userId])
+  createdAt    DateTime @default(now())
 }

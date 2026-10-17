@@ -1,7 +1,7 @@
 import { connection } from 'next/server';
 import { cache } from 'react';
 import { ProductStatus } from '@/app/generated/prisma/client';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/db/prisma';
 
 export async function getPublishedProducts() {
   // better-sqlite3 синхронний: без connection() Next виконає запит під час збірки

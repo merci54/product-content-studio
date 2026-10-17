@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import { ProductStatus } from '../app/generated/prisma/client';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../lib/db/prisma';
 
 const products = [
   {

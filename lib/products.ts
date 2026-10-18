@@ -1,7 +1,8 @@
 import { connection } from 'next/server';
 import { cache } from 'react';
-import { ProductStatus } from '@/app/generated/prisma/client';
+import { Prisma, ProductStatus } from '@/app/generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
+import type { ProductUpdate } from '@/lib/validation/product';
 
 export async function getPublishedProducts() {
   // better-sqlite3 синхронний: без connection() Next виконає запит під час збірки
@@ -37,3 +38,37 @@ export const getPublishedProductBySlug = cache(async (slug: string) => {
     },
   });
 });
+
+const adminProductSelect = {
+  id: true,
+  slug: true,
+  name: true,
+  description: true,
+  seoTitle: true,
+  seoDescription: true,
+  status: true,
+  updatedAt: true,
+  specs: { select: { label: true, value: true }, orderBy: { position: 'asc' } },
+} satisfies Prisma.ProductSelect;
+
+export async function getAllProducts() {
+  return prisma.product.findMany({
+    select: { id: true, name: true, status: true },
+    orderBy: { name: 'asc' },
+  });
+}
+
+export async function getProductById(id: number) {
+  return prisma.product.findUnique({ where: { id }, select: adminProductSelect });
+}
+
+export async function updateProduct(id: number, data: ProductUpdate) {
+  try {
+    return await prisma.product.update({ where: { id }, data, select: adminProductSelect });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      return null;
+    }
+    throw error;
+  }
+}

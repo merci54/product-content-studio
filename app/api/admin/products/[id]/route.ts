@@ -3,15 +3,11 @@ import { z } from 'zod';
 import { getSession } from '@/lib/auth/session';
 import { getProductById, updateProduct } from '@/lib/products';
 import { productUpdateSchema } from '@/lib/validation/product';
+import { parseId } from '@/lib/utils/parseId';
 
 type Props = {
   params: Promise<{ id: string }>;
 };
-
-function parseId(id: string) {
-  const productId = Number(id);
-  return Number.isInteger(productId) && productId > 0 ? productId : null;
-}
 
 export async function GET(request: Request, { params }: Props) {
   try {

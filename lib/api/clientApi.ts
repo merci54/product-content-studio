@@ -1,3 +1,4 @@
+import type { ProductUpdate } from '@/lib/validation/product';
 import { nextServer } from './api';
 
 export type LoginData = {
@@ -12,4 +13,9 @@ export const login = async (data: LoginData) => {
 
 export const logout = async () => {
   await nextServer.post('/auth/logout');
+};
+
+export const updateProduct = async (id: number, data: ProductUpdate) => {
+  const res = await nextServer.patch<ProductUpdate>(`/admin/products/${id}`, data);
+  return res.data;
 };

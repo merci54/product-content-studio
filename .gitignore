@@ -45,3 +45,8 @@ test-task-junior.md
 /app/generated/prisma
 *.db
 *.db-journal
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/

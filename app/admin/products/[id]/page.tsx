@@ -11,8 +11,6 @@ export const metadata: Metadata = {
   title: 'Редагування товару',
 };
 
-export const instant = false;
-
 export default async function EditProductPage({ params }: PageProps<'/admin/products/[id]'>) {
   const session = await getSession();
   if (!session) redirect('/login');

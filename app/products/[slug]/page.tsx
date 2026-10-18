@@ -4,10 +4,6 @@ import { notFound } from 'next/navigation';
 import Chevron from '@/components/Chevron/Chevron';
 import { getPublishedProductBySlug } from '@/lib/products';
 
-// Сторінка чекає на базу до початку відповіді. Інакше після старту стрімінгу
-// notFound() віддав би статус 200, а чернетка має отримувати справжній 404.
-export const instant = false;
-
 export async function generateMetadata({
   params,
 }: PageProps<'/products/[slug]'>): Promise<Metadata> {

@@ -11,8 +11,6 @@ export const metadata: Metadata = {
   title: 'Адмін-панель',
 };
 
-export const instant = false;
-
 export default async function AdminPage() {
   const session = await getSession();
   if (!session) redirect('/login');

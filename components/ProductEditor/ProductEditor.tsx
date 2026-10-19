@@ -148,7 +148,7 @@ export default function ProductEditor({ productId, initialValues }: Props) {
         <button
           type="submit"
           disabled={isSaving || !isDirty}
-          className="shrink-0 rounded-full bg-accent px-6 py-3 text-[17px] font-medium whitespace-nowrap text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-50"
+          className="shrink-0 rounded-full bg-button px-6 py-3 text-[17px] font-medium whitespace-nowrap text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent disabled:opacity-50"
         >
           {isSaving ? 'Збереження…' : 'Зберегти зміни'}
         </button>

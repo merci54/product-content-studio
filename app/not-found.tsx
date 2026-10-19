@@ -12,7 +12,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="mt-8 rounded-full bg-accent px-6 py-3 text-[15px] font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        className="mt-8 rounded-full bg-button px-6 py-3 text-[15px] font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
         Перейти до каталогу
       </Link>

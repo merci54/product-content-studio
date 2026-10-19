@@ -56,7 +56,7 @@ export default function LoginForm() {
       </label>
 
       {error && (
-        <p role="alert" className="text-[15px] text-red-600 dark:text-red-400">
+        <p role="alert" className="text-[15px] text-red-700 dark:text-red-400">
           {error}
         </p>
       )}
@@ -64,7 +64,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-2 rounded-full bg-accent px-6 py-3 text-[17px] font-medium text-white disabled:opacity-60"
+        className="mt-2 rounded-full bg-button px-6 py-3 text-[17px] font-medium text-white disabled:opacity-60"
       >
         {isPending ? 'Вхід…' : 'Увійти'}
       </button>

@@ -11,6 +11,7 @@
   --secondary: #6e6e73;
   --separator: #d2d2d7;
   --accent: #0066cc;
+  --button: #0066cc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,7 @@
     --secondary: #a1a1a6;
     --separator: #38383a;
     --accent: #2997ff;
+    --button: #0071e3;
   }
 }
 
@@ -31,6 +33,7 @@
   --color-secondary: var(--secondary);
   --color-separator: var(--separator);
   --color-accent: var(--accent);
+  --color-button: var(--button);
 
   /* Системний шрифт: SF на пристроях Apple, Segoe UI на Windows, Roboto на Android. Усі з кирилицею. */
   --font-sans:

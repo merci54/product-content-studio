@@ -45,3 +45,11 @@ body {
   background: var(--surface);
   color: var(--label);
 }
+
+/* Tailwind 4 скидає курсор кнопок до стандартного, повертаємо pointer для активних кнопок. */
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
